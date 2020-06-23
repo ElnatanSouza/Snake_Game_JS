@@ -1,4 +1,4 @@
-# Snake_Game_JS
+# SnakeGame HTML/JavaScript
 Foi feito um jogo simples da "Cobrinha" em HTML com JavaScript.
 
 As variavéis estão de fácil entendimento para quem é BR.
