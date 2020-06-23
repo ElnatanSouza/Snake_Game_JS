@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SNAKE GAME!</title>
+</head>
+    <body>
+        <canvas id="palco" width="600" height="600"></canvas>
+            <script type="text/javascript">
+                window.onload = function(){
+                    var palco = document.getElementById('palco'); //Parte visual do jogo
+                    var contexto = palco.getContext("2d");
+                        document.addEventListener("keydown", keyPush);
+                                 setInterval(game, 80); //Altera a velocidade do jogo em ms
+                    const velocidade = 1;
+                    var velx = vely = 0; //Velocidade x e y
+                    var pontox = 10;
+                    var pontoy = 15;
+                    var tam_pç = 20; //Tamanho da peça
+                    var quanti_pç = 30;
+                    var maçax = maçay = 15;
+                    var rastro = [];
+                    calda = 3;                     
+                    function game(){
+                        pontox += velx;
+                        pontoy += vely;
+
+                        if(pontox <0){
+                           pontox = quanti_pç-1;}
+                        if (pontox > quanti_pç-1){
+                            pontox = 0;}
+                        if(pontoy < 0){
+                           pontoy = quanti_pç-1;}
+                        if (pontoy > quanti_pç-1){
+                            pontoy = 0;}
+                            contexto.fillStyle = "aquamarine"; //Cor da tela
+                            contexto.fillRect(0,0, palco.width, palco.height);
+                            contexto.fillStyle = "red"; //Cor da maça
+                            contexto.fillRect(maçax*tam_pç, maçay*tam_pç, tam_pç,tam_pç);
+                            contexto.fillStyle = "black"; //Cor da cobra
+                        for (var i = 0; i < rastro.length; i++) {
+                            contexto.fillRect(rastro[i].x*tam_pç, rastro[i].y*tam_pç, tam_pç-1,tam_pç-1);
+                        if (rastro[i].x == pontox && rastro[i].y == pontoy){
+                            velx = vely = 0;
+                            calda = 3;}} //Caso a calda bata na cabeça | Volte onde esta a cabeça
+                            rastro.push({x:pontox, y:pontoy })
+                        while(rastro.length > calda){
+                            rastro.shift();}
+                        if (maçax==pontox && maçay==pontoy){
+                            calda++;
+                            maçax = Math.floor(Math.random()*quanti_pç);
+                            maçay = Math.floor(Math.random()*quanti_pç);} //Adiciona a "maça" a cobra e reposiciona outra "maça"
+                    }
+                    function keyPush(event){
+                        switch (event.keyCode){
+                        case 37: //Tecla Left
+                            velx = -velocidade;
+                            vely = 0;                
+                        break;
+                        case 38: //Tecla Up
+                            velx = 0;
+                            vely = -velocidade;                
+                        break;
+                        case 39: //Tecla right
+                            velx = velocidade;
+                            vely = 0;                
+                        break;
+                        case 40: //Tecla down
+                            velx = 0;
+                            vely = velocidade;                
+                        break;
+                        default:
+                        break;
+                        } //Controle de teclas!
+                    }
+                }
+            </script>
+    </body>
+</html>
